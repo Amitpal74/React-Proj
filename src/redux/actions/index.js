@@ -1,6 +1,5 @@
-import { getLogin, setLogin } from './loginRelatedActions';
+import { getLogin, setLogin, getSignUp, setSignUp} from './loginRelatedActions';
 
 
 export{
-    getLogin, setLogin
-}
+    getLogin, setLogin, getSignUp, setSignUp}

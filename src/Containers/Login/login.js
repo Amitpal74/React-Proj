@@ -5,7 +5,7 @@ class Login extends Component {
     state = {}
     render() {
         return (
-            <div className="App">
+            <div className="">
                 {/* <div className="">
                     <h2>React Form Validation Demo </h2>
                 </div> */}

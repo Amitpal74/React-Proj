@@ -1,19 +1,22 @@
 import React, { Component } from 'react';
-import { baseUrl } from '../../Common/config';
-// import axios from 'axios'
 import { bindActionCreators } from 'redux';
-import { getLogin } from '../../redux/actions'
 import { connect } from 'react-redux';
+import { getSignUp } from '../../redux/actions';
+import { baseUrl } from '../../Common/config'
 
-class LoginForm extends Component {
+class SignInForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            uName: '',
             email: '',
             password: ''
         }
     }
-
+    handleChangeUname = (e) => {
+        console.log(e.target.value);
+        this.setState({ uName: e.target.value });
+    }
     handleChangeEmail = (e) => {
         //  console.log(e.target.value)
         this.setState({ email: e.target.value });
@@ -22,32 +25,39 @@ class LoginForm extends Component {
         // console.log(e.target.value)
         this.setState({ password: e.target.value })
     }
-    login = (e) => {
+
+    signup = (e) => {
         e.preventDefault();
         let paramObj = {
+            name: this.state.uName,
             email: this.state.email,
             password: this.state.password
         }
-        const url = `${baseUrl}/login`
-        this.props.getLogin({ url: url, body: paramObj })
-
+        const url = `${baseUrl}/save`;
+        console.log('paramObj',paramObj);
+        
+        this.props.getSignUp({url: url, body: paramObj})
     }
-
     render() {
         return (
             <div className="row d-flex justify-content-center">
                 <div className="col-sm-4 ">
-                    <form className="demoForm" onSubmit={this.login}>
+                    <form className="demoForm" onSubmit={this.signup}>
                         <div style={{ borderStyle: 'ridge' }}>
+
+                        <div className="form-group">
+                                <label>Username</label>
+                                <input type="text" value={this.state.uName} onChange={this.handleChangeUname} className="form-control" name="uname" />
+                            </div>
                             <div className="form-group">
-                                <label htmlFor="email">Username</label>
+                                <label>Email</label>
                                 <input type="email" value={this.state.email} onChange={this.handleChangeEmail} className="form-control" name="email" />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="password" className="">password</label>
+                                <label className="">password</label>
                                 <input type="password" value={this.state.password} onChange={this.handleChangePass} className="form-control" name="password" />
                             </div>
-                            <button type="submit" className="btn btn-primary">Login</button>
+                            <button type="submit" className="btn btn-primary center">Sign In</button>
                         </div>
                     </form>
                 </div>
@@ -55,17 +65,14 @@ class LoginForm extends Component {
         );
     }
 }
-
-const mapStateToProps = (state) => {
+const mapStateToprops = (state) =>{
     console.log(state);
-}
+} 
 
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
-        getLogin: getLogin
-    }, dispatch)
-}
+        getSignUp: getSignUp
+    },dispatch)
+} 
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm)
-
-// export default LoginForm;
+export default connect(mapStateToprops, mapDispatchToProps)(SignInForm);
